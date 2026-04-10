@@ -1,0 +1,121 @@
+{
+  "entities": {
+    "users": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "photoURL": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "bio": { "type": "string" },
+        "rating": { "type": "number" },
+        "tripsCompleted": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "isDriver": { "type": "boolean" },
+        "realName": { "type": "string" },
+        "dniFrontUrl": { "type": "string" },
+        "dniBackUrl": { "type": "string" },
+        "selfieWithDniUrl": { "type": "string" },
+        "cedulaUrl": { "type": "string" },
+        "insuranceUrl": { "type": "string" },
+        "carBrand": { "type": "string" },
+        "carModel": { "type": "string" },
+        "carColor": { "type": "string" },
+        "carPlate": { "type": "string" },
+        "carPhotoUrl": { "type": "string" },
+        "carSeats": { "type": "number" },
+        "verificationStatus": { "type": "string", "enum": ["none", "pending", "approved", "rejected"] },
+        "rejectionReason": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] }
+      },
+      "required": ["uid", "email"]
+    },
+    "trips": {
+      "title": "Trip",
+      "description": "A trip published by a driver",
+      "type": "object",
+      "properties": {
+        "driverId": { "type": "string" },
+        "driverName": { "type": "string" },
+        "origin": { "type": "string" },
+        "destination": { "type": "string" },
+        "originCoords": { "type": "object" },
+        "destinationCoords": { "type": "object" },
+        "departureTime": { "type": "string", "format": "date-time" },
+        "availableSeats": { "type": "number" },
+        "pricePerSeat": { "type": "number" },
+        "montoNaftaConductor": { "type": "number" },
+        "comisionPlataforma": { "type": "number" },
+        "precioFinalPasajero": { "type": "number" },
+        "distanciaKm": { "type": "number" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "completed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["driverId", "origin", "destination", "departureTime", "availableSeats", "pricePerSeat"]
+    },
+    "app_config": {
+      "title": "App Config",
+      "description": "Global application configuration",
+      "type": "object",
+      "properties": {
+        "precio_nafta_actual": { "type": "number" },
+        "consumo_estandar_100km": { "type": "number" },
+        "comision_plataforma_fija": { "type": "number" }
+      }
+    },
+    "bookings": {
+      "title": "Booking",
+      "description": "A booking made by a passenger",
+      "type": "object",
+      "properties": {
+        "tripId": { "type": "string" },
+        "passengerId": { "type": "string" },
+        "passengerName": { "type": "string" },
+        "seats": { "type": "number" },
+        "totalPrice": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled", "rejected"] },
+        "paymentId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tripId", "passengerId", "seats", "totalPrice", "status"]
+    },
+    "messages": {
+      "title": "Message",
+      "description": "A message in a chat between users",
+      "type": "object",
+      "properties": {
+        "chatId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["chatId", "senderId", "text", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User profiles"
+    },
+    "/trips/{tripId}": {
+      "schema": "trips",
+      "description": "Published trips"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "bookings",
+      "description": "Trip bookings"
+    },
+    "/messages/{messageId}": {
+      "schema": "messages",
+      "description": "Chat messages"
+    },
+    "/app_config/{configId}": {
+      "schema": "app_config",
+      "description": "Global app configuration"
+    }
+  }
+}

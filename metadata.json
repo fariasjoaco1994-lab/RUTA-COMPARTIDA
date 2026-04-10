@@ -1,0 +1,7 @@
+{
+  "name": "RUTA COMPARTIDA",
+  "description": "Plataforma de carpooling para compartir viajes en auto por toda Argentina.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
